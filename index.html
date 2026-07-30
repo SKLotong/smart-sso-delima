@@ -171,14 +171,45 @@
       transform: translateY(-2px);
     }
 
-    .btn-classroom {
-      background: #4f46e5;
-      color: #ffffff;
-      margin-top: 10px;
+    /* GRID MENU DESTINASI PANTAI */
+    .dest-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #334155;
+      margin: 16px 0 10px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: left;
     }
 
-    .btn-classroom:hover {
-      background: #4338ca;
+    .dest-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .btn-dest {
+      padding: 12px 10px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-dest:hover {
+      border-color: #2563eb;
+      background: #eff6ff;
+      color: #1d4ed8;
+      transform: translateY(-2px);
     }
 
     .btn-reset {
@@ -210,7 +241,7 @@
       border-radius: 14px;
       padding: 18px;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .saved-box .avatar-icon {
@@ -242,7 +273,7 @@
       text-align: left;
     }
 
-    /* FOOTER MODEN SATU BARIS */
+    /* FOOTER SATU BARIS */
     .footer {
       background: rgba(255, 255, 255, 0.18);
       backdrop-filter: blur(12px);
@@ -284,7 +315,7 @@
     <div class="header">
       <span class="motto">Berbakti, Berilmu, Berakhlak</span>
       <h2>SMART SSO GATEWAY</h2>
-      <p>Akses Pantas Google Classroom</p>
+      <p>Akses Pantas DELIMa & Aplikasi Google</p>
     </div>
 
     <!-- BENTUK 1: SESI TERSIMPAN -->
@@ -300,16 +331,20 @@
         <span>👆</span> LOG MASUK GUNA CAP JARI / FACE ID
       </button>
       
-      <button class="btn btn-classroom" onclick="directClassroom()">
-        <span>🚀</span> TERUS KE GOOGLE CLASSROOM
-      </button>
+      <div class="dest-title">🎯 Pilih Destinasi Akses:</div>
+      <div class="dest-grid">
+        <button class="btn-dest" onclick="directToApp('classroom')">🏫 Classroom</button>
+        <button class="btn-dest" onclick="directToApp('delima')">🌐 DELIMa 3.0</button>
+        <button class="btn-dest" onclick="directToApp('gemini')">✨ Gemini AI</button>
+        <button class="btn-dest" onclick="directToApp('drive')">📁 Drive</button>
+      </div>
 
       <button class="btn btn-reset" onclick="tukarAkaun()">
         🔄 Tukar / Log Masuk Akaun Murid Lain
       </button>
     </div>
 
-    <!-- BENTUK 2: PILIH KELAS & MURID -->
+    <!-- BENTUK 2: PILIH KELAS, MURID & DESTINASI -->
     <div id="firstTimeView">
       <div class="form-group">
         <label for="selectKelas">🏫 1. Pilih Kelas</label>
@@ -322,6 +357,16 @@
         <label for="selectMurid">👤 2. Pilih Nama Murid</label>
         <select id="selectMurid" disabled>
           <option value="">-- Pilih Kelas Terlebih Dahulu --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="selectDestinasi">🚀 3. Pilih Destinasi Log Masuk</label>
+        <select id="selectDestinasi">
+          <option value="classroom">🏫 Google Classroom</option>
+          <option value="delima">🌐 Portal DELIMa 3.0</option>
+          <option value="gemini">✨ Gemini AI</option>
+          <option value="drive">📁 Google Drive</option>
         </select>
       </div>
 
@@ -338,7 +383,7 @@
   <!-- FOOTER SATU BARIS -->
   <div class="footer">
     <div class="footer-text">
-      <span class="dev-label">DEVELOPED BY</span> Sahranie S &bull; SK Lotong, Tambunan
+      <span class="dev-label">DEVELOPED BY</span> Sahranie binti Sahir &bull; SK Lotong, Tambunan
     </div>
   </div>
 
@@ -347,6 +392,14 @@
 <script>
   // WEB APP URL GOOGLE APPS SCRIPT
   const GAS_API_URL = "https://script.google.com/macros/s/AKfycbwRRR0X3_wVVcDjDIvpEkRWUrcLmF9jGTWq0lLHjofnOD2R3_5mEoisGu3wmqz9BPxeEw/exec";
+
+  // PAUTAN DESTINASI RANGKAIAN GOOGLE & DELIMA
+  const TARGET_URLS = {
+    classroom: "https://classroom.google.com",
+    delima: "https://d3.delima.edu.my/landing",
+    gemini: "https://gemini.google.com",
+    drive: "https://drive.google.com"
+  };
 
   window.onload = function() {
     semakSesiTersimpan();
@@ -450,13 +503,14 @@
     var select = document.getElementById("selectMurid");
     var emel = select.value;
     var nama = select.options[select.selectedIndex].getAttribute("data-nama");
+    var destKey = document.getElementById("selectDestinasi").value || "classroom";
 
     if (!emel) return;
 
     localStorage.setItem("sk_lotong_emel", emel);
     localStorage.setItem("sk_lotong_nama", nama);
 
-    directClassroomWithEmail(emel);
+    directToTargetUrl(emel, TARGET_URLS[destKey]);
   }
 
   async function loginGunaBiometric() {
@@ -476,22 +530,22 @@
           }
         });
 
-        directClassroomWithEmail(emel);
+        directToTargetUrl(emel, TARGET_URLS.classroom);
       } catch (err) {
-        directClassroomWithEmail(emel);
+        directToTargetUrl(emel, TARGET_URLS.classroom);
       }
     } else {
-      directClassroomWithEmail(emel);
+      directToTargetUrl(emel, TARGET_URLS.classroom);
     }
   }
 
-  function directClassroom() {
+  function directToApp(appKey) {
     var emel = localStorage.getItem("sk_lotong_emel");
-    if (emel) directClassroomWithEmail(emel);
+    var target = TARGET_URLS[appKey] || TARGET_URLS.classroom;
+    if (emel) directToTargetUrl(emel, target);
   }
 
-  function directClassroomWithEmail(emel) {
-    var targetUrl = "https://classroom.google.com";
+  function directToTargetUrl(emel, targetUrl) {
     var loginUrl = "https://accounts.google.com/AccountChooser?Email=" + encodeURIComponent(emel) + "&continue=" + encodeURIComponent(targetUrl);
     window.open(loginUrl, '_blank');
   }
