@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMART SSO GATEWAY - SK LOTONG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #fef08a 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px 15px;
+    }
+
+    .main-wrapper {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 32px 24px 28px 24px;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
+      position: relative;
+      overflow: hidden;
+      border: 3px solid #facc15;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(to right, #dc2626 0%, #2563eb 100%);
+    }
+
+    .logo-wrapper {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .school-logo {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.15));
+      transition: transform 0.3s ease;
+    }
+
+    .school-logo:hover {
+      transform: scale(1.05);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .header h2 {
+      color: #1e3a8a;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+
+    .header .motto {
+      display: inline-block;
+      background: #fef08a;
+      color: #854d0e;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 12px;
+      border-radius: 20px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .header p {
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #1e293b;
+      font-size: 0.88rem;
+    }
+
+    select {
+      width: 100%;
+      padding: 13px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      background-color: #f8fafc;
+      color: #0f172a;
+      outline: none;
+      transition: all 0.25s ease;
+      font-weight: 500;
+    }
+
+    select:focus {
+      border-color: #2563eb;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-bio {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+    }
+
+    .btn-bio:hover {
+      background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+      transform: translateY(-2px);
+    }
+
+    .btn-classroom {
+      background: #4f46e5;
+      color: #ffffff;
+      margin-top: 10px;
+    }
+
+    .btn-classroom:hover {
+      background: #4338ca;
+    }
+
+    .btn-reset {
+      background: transparent;
+      color: #ef4444;
+      border: 1.5px dashed #fca5a5;
+      font-size: 0.8rem;
+      padding: 10px;
+      margin-top: 14px;
+      box-shadow: none;
+    }
+
+    .btn-reset:hover {
+      background: #fef2f2;
+      border-color: #ef4444;
+    }
+
+    button:disabled {
+      background: #cbd5e1 !important;
+      color: #94a3b8 !important;
+      box-shadow: none !important;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .saved-box {
+      background: #f0f9ff;
+      border: 1.5px solid #bae6fd;
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .saved-box .avatar-icon {
+      font-size: 2rem;
+      margin-bottom: 4px;
+    }
+
+    .saved-box h4 {
+      color: #0369a1;
+      font-size: 1.05rem;
+      margin-bottom: 2px;
+    }
+
+    .saved-box p {
+      color: #0284c7;
+      font-size: 0.82rem;
+      word-break: break-all;
+    }
+
+    .note-card {
+      margin-top: 22px;
+      padding: 12px 14px;
+      background: #fffbeb;
+      border-left: 4px solid #eab308;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      color: #a16207;
+      line-height: 1.4;
+      text-align: left;
+    }
+
+    .footer {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 14px;
+      border-radius: 16px;
+      text-align: center;
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .footer .dev-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #fef08a;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .footer .dev-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.2px;
+    }
+
+    .footer .dev-school {
+      font-size: 0.78rem;
+      color: #e0f2fe;
+      font-weight: 500;
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+
+  <div class="card">
+    <div class="logo-wrapper">
+      <img src="https://iili.io/C8OMNK7.png" alt="Logo SK Lotong" class="school-logo">
+    </div>
+
+    <div class="header">
+      <span class="motto">Berbakti, Berilmu, Berakhlak</span>
+      <h2>SMART SSO GATEWAY</h2>
+      <p>Akses Pantas Google Classroom</p>
+    </div>
+
+    <!-- BENTUK 1: SESI TERSIMPAN -->
+    <div id="savedSessionView" class="hidden">
+      <div class="saved-box">
+        <div class="avatar-icon">🎓</div>
+        <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #0284c7; margin-bottom: 2px;">Akaun Terhubung</p>
+        <h4 id="savedNamaMurid">-</h4>
+        <p id="savedEmelMurid">-</p>
+      </div>
+
+      <button id="btnBioLogin" class="btn btn-bio" onclick="loginGunaBiometric()">
+        <span>👆</span> LOG MASUK GUNA CAP JARI / FACE ID
+      </button>
+      
+      <button class="btn btn-classroom" onclick="directClassroom()">
+        <span>🚀</span> TERUS KE GOOGLE CLASSROOM
+      </button>
+
+      <button class="btn btn-reset" onclick="tukarAkaun()">
+        🔄 Tukar / Log Masuk Akaun Murid Lain
+      </button>
+    </div>
+
+    <!-- BENTUK 2: PILIH KELAS & MURID -->
+    <div id="firstTimeView">
+      <div class="form-group">
+        <label for="selectKelas">🏫 1. Pilih Kelas</label>
+        <select id="selectKelas" onchange="muatMurid()">
+          <option value="">-- Memuatkan Senarai Kelas... --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="selectMurid">👤 2. Pilih Nama Murid</label>
+        <select id="selectMurid" disabled>
+          <option value="">-- Pilih Kelas Terlebih Dahulu --</option>
+        </select>
+      </div>
+
+      <button id="btnLogin" class="btn btn-primary" onclick="prosesLoginPertama()" disabled>
+        <span>🔑</span> LOG MASUK (KALI PERTAMA)
+      </button>
+    </div>
+
+    <div class="note-card">
+      💡 <strong>Sistem Auto-Ingat:</strong> Masukkan kata laluan sekali sahaja. Log masuk akan datang boleh terus dibuka menggunakan Fingerprint atau Face ID telefon anda.
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="dev-title">DEVELOPED BY</div>
+    <div class="dev-name">Sahranie binti Sahir</div>
+    <div class="dev-school">SK Lotong, Tambunan</div>
+  </div>
+
+</div>
+
+<script>
+  // LEAHTAKAN WEB APP URL ANDA DI SINI
+  const GAS_API_URL = "GANTIKAN_DENGAN_WEB_APP_URL_APPS_SCRIPT_ANDA";
+
+  window.onload = function() {
+    semakSesiTersimpan();
+  };
+
+  function semakSesiTersimpan() {
+    var savedEmel = localStorage.getItem("sk_lotong_emel");
+    var savedNama = localStorage.getItem("sk_lotong_nama");
+
+    if (savedEmel && savedNama) {
+      document.getElementById("firstTimeView").classList.add("hidden");
+      document.getElementById("savedSessionView").classList.remove("hidden");
+      document.getElementById("savedNamaMurid").textContent = savedNama;
+      document.getElementById("savedEmelMurid").textContent = savedEmel;
+    } else {
+      document.getElementById("savedSessionView").classList.add("hidden");
+      document.getElementById("firstTimeView").classList.remove("hidden");
+      
+      // Ambil senarai kelas menggunakan fetch
+      fetch(GAS_API_URL + "?action=getKelas")
+        .then(response => response.json())
+        .then(isiKelas)
+        .catch(err => console.error("Ralat muat kelas:", err));
+    }
+  }
+
+  function isiKelas(senaraiKelas) {
+    var select = document.getElementById("selectKelas");
+    select.innerHTML = '<option value="">-- Pilih Kelas --</option>';
+    senaraiKelas.forEach(function(kelas) {
+      var opt = document.createElement("option");
+      opt.value = kelas;
+      opt.textContent = kelas;
+      select.appendChild(opt);
+    });
+  }
+
+  function muatMurid() {
+    var kelas = document.getElementById("selectKelas").value;
+    var selectMurid = document.getElementById("selectMurid");
+    var btnLogin = document.getElementById("btnLogin");
+
+    if (!kelas) {
+      selectMurid.innerHTML = '<option value="">-- Pilih Kelas Terlebih Dahulu --</option>';
+      selectMurid.disabled = true;
+      btnLogin.disabled = true;
+      return;
+    }
+
+    selectMurid.innerHTML = '<option value="">-- Memuatkan Nama... --</option>';
+    selectMurid.disabled = true;
+
+    fetch(https://script.google.com/macros/s/AKfycbwRRR0X3_wVVcDjDIvpEkRWUrcLmF9jGTWq0lLHjofnOD2R3_5mEoisGu3wmqz9BPxeEw/exec + "?action=getMurid&kelas=" + encodeURIComponent(kelas))
+      .then(response => response.json())
+      .then(function(senaraiMurid) {
+        selectMurid.innerHTML = '<option value="">-- Pilih Nama Murid --</option>';
+        senaraiMurid.forEach(function(m) {
+          var opt = document.createElement("option");
+          opt.value = m.emel;
+          opt.setAttribute("data-nama", m.nama);
+          opt.textContent = m.nama;
+          selectMurid.appendChild(opt);
+        });
+        selectMurid.disabled = false;
+      })
+      .catch(err => console.error("Ralat muat murid:", err));
+  }
+
+  document.getElementById("selectMurid").addEventListener("change", function() {
+    document.getElementById("btnLogin").disabled = !this.value;
+  });
+
+  function prosesLoginPertama() {
+    var select = document.getElementById("selectMurid");
+    var emel = select.value;
+    var nama = select.options[select.selectedIndex].getAttribute("data-nama");
+
+    if (!emel) return;
+
+    localStorage.setItem("sk_lotong_emel", emel);
+    localStorage.setItem("sk_lotong_nama", nama);
+
+    directClassroomWithEmail(emel);
+  }
+
+  async function loginGunaBiometric() {
+    var emel = localStorage.getItem("sk_lotong_emel");
+    if (!emel) return;
+
+    if (window.PublicKeyCredential) {
+      try {
+        const challenge = new Uint8Array(32);
+        window.crypto.getRandomValues(challenge);
+
+        await navigator.credentials.get({
+          publicKey: {
+            challenge: challenge,
+            timeout: 60000,
+            userVerification: "required"
+          }
+        });
+
+        directClassroomWithEmail(emel);
+      } catch (err) {
+        directClassroomWithEmail(emel);
+      }
+    } else {
+      directClassroomWithEmail(emel);
+    }
+  }
+
+  function directClassroom() {
+    var emel = localStorage.getItem("sk_lotong_emel");
+    if (emel) directClassroomWithEmail(emel);
+  }
+
+  function directClassroomWithEmail(emel) {
+    var targetUrl = "https://classroom.google.com";
+    var loginUrl = "https://accounts.google.com/AccountChooser?Email=" + encodeURIComponent(emel) + "&continue=" + encodeURIComponent(targetUrl);
+    window.open(loginUrl, '_blank');
+  }
+
+  function tukarAkaun() {
+    if (confirm("Adakah anda pasti mahu memadam profil tersimpan ini untuk mendaftar akaun murid baharu?")) {
+      localStorage.removeItem("sk_lotong_emel");
+      localStorage.removeItem("sk_lotong_nama");
+      semakSesiTersimpan();
+    }
+  }
+</script>
+
+</body>
+</html>
