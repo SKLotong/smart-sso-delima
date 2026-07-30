@@ -171,7 +171,6 @@
       transform: translateY(-2px);
     }
 
-    /* GRID MENU DESTINASI PANTAI */
     .dest-title {
       font-size: 0.8rem;
       font-weight: 700;
@@ -273,7 +272,6 @@
       text-align: left;
     }
 
-    /* FOOTER SATU BARIS */
     .footer {
       background: rgba(255, 255, 255, 0.18);
       backdrop-filter: blur(12px);
@@ -380,7 +378,6 @@
     </div>
   </div>
 
-  <!-- FOOTER SATU BARIS -->
   <div class="footer">
     <div class="footer-text">
       <span class="dev-label">DEVELOPED BY</span> Sahranie binti Sahir &bull; SK Lotong, Tambunan
@@ -390,13 +387,11 @@
 </div>
 
 <script>
-  // WEB APP URL GOOGLE APPS SCRIPT
   const GAS_API_URL = "https://script.google.com/macros/s/AKfycbwRRR0X3_wVVcDjDIvpEkRWUrcLmF9jGTWq0lLHjofnOD2R3_5mEoisGu3wmqz9BPxeEw/exec";
 
-  // PAUTAN DESTINASI RASMI (DIKEMASKINI: DELIMA 3.0)
   const TARGET_URLS = {
     classroom: "https://classroom.google.com",
-    delima: "https://d3.delima.edu.my",
+    delima: "delima", // Pengecam khas untuk DELIMa 3.0
     gemini: "https://gemini.google.com",
     drive: "https://drive.google.com"
   };
@@ -546,8 +541,20 @@
   }
 
   function directToTargetUrl(emel, targetUrl) {
-    var loginUrl = "https://accounts.google.com/AccountChooser?Email=" + encodeURIComponent(emel) + "&continue=" + encodeURIComponent(targetUrl);
-    window.open(loginUrl, '_blank');
+    if (targetUrl === "delima") {
+      // Untuk DELIMa 3.0: Aktifkan pengesahan akaun Google secara sah tanpa 'Bad Request'
+      var googleAuthUrl = "https://accounts.google.com/AccountChooser?Email=" + encodeURIComponent(emel) + "&continue=" + encodeURIComponent("https://myaccount.google.com");
+      
+      // Buka pengesahan akaun Google dan buka portal DELIMa 3.0
+      window.open(googleAuthUrl, '_blank');
+      setTimeout(function() {
+        window.open("https://d3.delima.edu.my", '_blank');
+      }, 1000);
+    } else {
+      // Untuk aplikasi asli Google (Classroom, Gemini, Drive)
+      var loginUrl = "https://accounts.google.com/AccountChooser?Email=" + encodeURIComponent(emel) + "&continue=" + encodeURIComponent(targetUrl);
+      window.open(loginUrl, '_blank');
+    }
   }
 
   function tukarAkaun() {
