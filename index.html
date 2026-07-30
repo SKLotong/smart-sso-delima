@@ -351,8 +351,8 @@
 </div>
 
 <script>
-  // LEAHTAKAN WEB APP URL ANDA DI SINI
-  const GAS_API_URL = "GANTIKAN_DENGAN_WEB_APP_URL_APPS_SCRIPT_ANDA";
+  // WEB APP URL GOOGLE APPS SCRIPT
+  const GAS_API_URL = "https://script.google.com/macros/s/AKfycbwRRR0X3_wVVcDjDIvpEkRWUrcLmF9jGTWq0lLHjofnOD2R3_5mEoisGu3wmqz9BPxeEw/exec";
 
   window.onload = function() {
     semakSesiTersimpan();
@@ -370,24 +370,41 @@
     } else {
       document.getElementById("savedSessionView").classList.add("hidden");
       document.getElementById("firstTimeView").classList.remove("hidden");
-      
-      // Ambil senarai kelas menggunakan fetch
-      fetch(GAS_API_URL + "?action=getKelas")
-        .then(response => response.json())
-        .then(isiKelas)
-        .catch(err => console.error("Ralat muat kelas:", err));
+      muatSenaraiKelas();
     }
+  }
+
+  function muatSenaraiKelas() {
+    var select = document.getElementById("selectKelas");
+    select.innerHTML = '<option value="">-- Memuatkan Senarai Kelas... --</option>';
+
+    fetch(GAS_API_URL + "?action=getKelas", {
+      method: "GET",
+      redirect: "follow"
+    })
+    .then(response => response.json())
+    .then(senaraiKelas => {
+      isiKelas(senaraiKelas);
+    })
+    .catch(err => {
+      console.error("Ralat muat kelas:", err);
+      select.innerHTML = '<option value="">-- Gagal Memuatkan Kelas (Cuba Refresh) --</option>';
+    });
   }
 
   function isiKelas(senaraiKelas) {
     var select = document.getElementById("selectKelas");
     select.innerHTML = '<option value="">-- Pilih Kelas --</option>';
-    senaraiKelas.forEach(function(kelas) {
-      var opt = document.createElement("option");
-      opt.value = kelas;
-      opt.textContent = kelas;
-      select.appendChild(opt);
-    });
+    if (Array.isArray(senaraiKelas) && senaraiKelas.length > 0) {
+      senaraiKelas.forEach(function(kelas) {
+        var opt = document.createElement("option");
+        opt.value = kelas;
+        opt.textContent = kelas;
+        select.appendChild(opt);
+      });
+    } else {
+      select.innerHTML = '<option value="">-- Tiada Data Kelas Ditemui --</option>';
+    }
   }
 
   function muatMurid() {
@@ -405,10 +422,14 @@
     selectMurid.innerHTML = '<option value="">-- Memuatkan Nama... --</option>';
     selectMurid.disabled = true;
 
-    fetch(https://script.google.com/macros/s/AKfycbwRRR0X3_wVVcDjDIvpEkRWUrcLmF9jGTWq0lLHjofnOD2R3_5mEoisGu3wmqz9BPxeEw/exec + "?action=getMurid&kelas=" + encodeURIComponent(kelas))
-      .then(response => response.json())
-      .then(function(senaraiMurid) {
-        selectMurid.innerHTML = '<option value="">-- Pilih Nama Murid --</option>';
+    fetch(GAS_API_URL + "?action=getMurid&kelas=" + encodeURIComponent(kelas), {
+      method: "GET",
+      redirect: "follow"
+    })
+    .then(response => response.json())
+    .then(function(senaraiMurid) {
+      selectMurid.innerHTML = '<option value="">-- Pilih Nama Murid --</option>';
+      if (Array.isArray(senaraiMurid) && senaraiMurid.length > 0) {
         senaraiMurid.forEach(function(m) {
           var opt = document.createElement("option");
           opt.value = m.emel;
@@ -417,8 +438,14 @@
           selectMurid.appendChild(opt);
         });
         selectMurid.disabled = false;
-      })
-      .catch(err => console.error("Ralat muat murid:", err));
+      } else {
+        selectMurid.innerHTML = '<option value="">-- Tiada Murid Ditemui --</option>';
+      }
+    })
+    .catch(err => {
+      console.error("Ralat muat murid:", err);
+      selectMurid.innerHTML = '<option value="">-- Gagal Memuatkan Nama --</option>';
+    });
   }
 
   document.getElementById("selectMurid").addEventListener("change", function() {
