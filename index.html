@@ -242,38 +242,31 @@
       text-align: left;
     }
 
+    /* FOOTER MODEN SATU BARIS */
     .footer {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 14px;
-      border-radius: 16px;
+      padding: 10px 16px;
+      border-radius: 50px;
       text-align: center;
-      color: #ffffff;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
     }
 
-    .footer .dev-title {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: #fef08a;
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-
-    .footer .dev-name {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: #ffffff;
-      letter-spacing: 0.2px;
-    }
-
-    .footer .dev-school {
+    .footer-text {
       font-size: 0.78rem;
-      color: #e0f2fe;
+      color: #ffffff;
       font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .footer-text span.dev-label {
+      color: #fef08a;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      letter-spacing: 0.8px;
     }
 
     .hidden { display: none !important; }
@@ -342,10 +335,11 @@
     </div>
   </div>
 
+  <!-- FOOTER SATU BARIS -->
   <div class="footer">
-    <div class="dev-title">DEVELOPED BY</div>
-    <div class="dev-name">Sahranie binti Sahir</div>
-    <div class="dev-school">SK Lotong, Tambunan</div>
+    <div class="footer-text">
+      <span class="dev-label">DEVELOPED BY</span> Sahranie binti Sahir &bull; SK Lotong, Tambunan
+    </div>
   </div>
 
 </div>
