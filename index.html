@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SMART SSO GATEWAY - SK LOTONG</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Import Font Poppins & Playfair Display untuk gaya elegan -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
     * {
@@ -273,30 +274,36 @@
       text-align: left;
     }
 
+    /* FOOTER ELEGAN BAHARU */
     .footer {
       background: rgba(255, 255, 255, 0.18);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 10px 16px;
-      border-radius: 50px;
+      padding: 8px 14px;
+      border-radius: 20px;
       text-align: center;
       box-shadow: 0 6px 16px rgba(0,0,0,0.06);
     }
 
-    .footer-text {
-      font-size: 0.78rem;
-      color: #ffffff;
+    .footer .dev-label {
+      font-size: 0.62rem;
+      text-transform: lowercase;
+      letter-spacing: 1px;
+      color: #fef08a;
       font-weight: 500;
-      letter-spacing: 0.3px;
+      display: block;
+      margin-bottom: 1px;
+      opacity: 0.9;
     }
 
-    .footer-text span.dev-label {
-      color: #fef08a;
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.72rem;
-      letter-spacing: 0.8px;
+    .footer .dev-elegant {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.76rem;
+      color: #ffffff;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      font-style: italic;
     }
 
     .hidden { display: none !important; }
@@ -383,10 +390,10 @@
     </div>
   </div>
 
+  <!-- FOOTER ELEGAN DUA BARIS HALUS -->
   <div class="footer">
-    <div class="footer-text">
-      <span class="dev-label">DEVELOPED BY</span> Sahranie binti Sahir &bull; SK Lotong, Tambunan
-    </div>
+    <span class="dev-label">developed by</span>
+    <div class="dev-elegant">Sahranie S • SK Lotong, Tambunan</div>
   </div>
 
 </div>
