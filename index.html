@@ -183,25 +183,26 @@
 
     .dest-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
       margin-bottom: 12px;
     }
 
     .btn-dest {
-      padding: 12px 10px;
+      padding: 12px 6px;
       border: 1.5px solid #e2e8f0;
       border-radius: 12px;
       background: #f8fafc;
       color: #1e293b;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 4px;
     }
 
     .btn-dest:hover {
@@ -313,7 +314,7 @@
     <div class="header">
       <span class="motto">Berbakti, Berilmu, Berakhlak</span>
       <h2>SMART SSO GATEWAY</h2>
-      <p>Akses Pantas DELIMa & Aplikasi Google</p>
+      <p>Akses Pantas Aplikasi Google DELIMa</p>
     </div>
 
     <!-- BENTUK 1: SESI TERSIMPAN -->
@@ -329,12 +330,17 @@
         <span>👆</span> LOG MASUK GUNA CAP JARI / FACE ID
       </button>
       
-      <div class="dest-title">🎯 Pilih Destinasi Akses:</div>
+      <div class="dest-title">🎯 Pilih Aplikasi Akses:</div>
       <div class="dest-grid">
-        <button class="btn-dest" onclick="directToApp('classroom')">🏫 Classroom</button>
-        <button class="btn-dest" onclick="directToApp('delima')">🌐 DELIMa 3.0</button>
-        <button class="btn-dest" onclick="directToApp('gemini')">✨ Gemini AI</button>
-        <button class="btn-dest" onclick="directToApp('drive')">📁 Drive</button>
+        <button class="btn-dest" onclick="directToApp('classroom')">
+          <span style="font-size: 1.2rem;">🏫</span> Classroom
+        </button>
+        <button class="btn-dest" onclick="directToApp('gemini')">
+          <span style="font-size: 1.2rem;">✨</span> Gemini AI
+        </button>
+        <button class="btn-dest" onclick="directToApp('drive')">
+          <span style="font-size: 1.2rem;">📁</span> Drive
+        </button>
       </div>
 
       <button class="btn btn-reset" onclick="tukarAkaun()">
@@ -359,10 +365,9 @@
       </div>
 
       <div class="form-group">
-        <label for="selectDestinasi">🚀 3. Pilih Destinasi Log Masuk</label>
+        <label for="selectDestinasi">🚀 3. Pilih Aplikasi</label>
         <select id="selectDestinasi">
           <option value="classroom">🏫 Google Classroom</option>
-          <option value="delima">🌐 Portal DELIMa 3.0</option>
           <option value="gemini">✨ Gemini AI</option>
           <option value="drive">📁 Google Drive</option>
         </select>
@@ -391,7 +396,6 @@
 
   const TARGET_URLS = {
     classroom: "https://classroom.google.com",
-    delima: "delima", // Pengecam khas untuk DELIMa 3.0
     gemini: "https://gemini.google.com",
     drive: "https://drive.google.com"
   };
@@ -541,20 +545,8 @@
   }
 
   function directToTargetUrl(emel, targetUrl) {
-    if (targetUrl === "delima") {
-      // Untuk DELIMa 3.0: Aktifkan pengesahan akaun Google secara sah tanpa 'Bad Request'
-      var googleAuthUrl = "https://accounts.google.com/AccountChooser?Email=" + encodeURIComponent(emel) + "&continue=" + encodeURIComponent("https://myaccount.google.com");
-      
-      // Buka pengesahan akaun Google dan buka portal DELIMa 3.0
-      window.open(googleAuthUrl, '_blank');
-      setTimeout(function() {
-        window.open("https://d3.delima.edu.my", '_blank');
-      }, 1000);
-    } else {
-      // Untuk aplikasi asli Google (Classroom, Gemini, Drive)
-      var loginUrl = "https://accounts.google.com/AccountChooser?Email=" + encodeURIComponent(emel) + "&continue=" + encodeURIComponent(targetUrl);
-      window.open(loginUrl, '_blank');
-    }
+    var loginUrl = "https://accounts.google.com/AccountChooser?Email=" + encodeURIComponent(emel) + "&continue=" + encodeURIComponent(targetUrl);
+    window.open(loginUrl, '_blank');
   }
 
   function tukarAkaun() {
