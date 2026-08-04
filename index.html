@@ -274,7 +274,6 @@
       text-align: left;
     }
 
-    /* FOOTER ELEGAN BAHARU */
     .footer {
       background: rgba(255, 255, 255, 0.18);
       backdrop-filter: blur(12px);
@@ -333,42 +332,44 @@
         <p id="savedEmelMurid">-</p>
       </div>
 
+      <!-- Diubah supaya cap jari membuka aplikasi pilihan utama (default: classroom atau mengikut kesesuaian) -->
       <button id="btnBioLogin" class="btn btn-bio" onclick="loginGunaBiometric()">
         <span>👆</span> LOG MASUK GUNA CAP JARI / FACE ID
       </button>
       
       <div class="dest-title">🎯 Pilih Aplikasi Akses:</div>
       <div class="dest-grid">
-  <button class="btn-dest" onclick="directToApp('classroom')">
-    <span style="font-size:1.2rem;">🏫</span>
-    Classroom
-  </button>
+        <button class="btn-dest" onclick="directToApp('classroom')">
+          <span style="font-size:1.2rem;">🏫</span>
+          Classroom
+        </button>
 
-  <button class="btn-dest" onclick="directToApp('docs')">
-    <span style="font-size:1.2rem;">📄</span>
-    Google Docs
-  </button>
+        <button class="btn-dest" onclick="directToApp('docs')">
+          <span style="font-size:1.2rem;">📄</span>
+          Google Docs
+        </button>
 
-  <button class="btn-dest" onclick="directToApp('drive')">
-    <span style="font-size:1.2rem;">📁</span>
-    Drive
-  </button>
+        <button class="btn-dest" onclick="directToApp('drive')">
+          <span style="font-size:1.2rem;">📁</span>
+          Drive
+        </button>
 
-  <button class="btn-dest" onclick="directToApp('gmail')">
-    <span style="font-size:1.2rem;">📧</span>
-    Gmail
-  </button>
+        <button class="btn-dest" onclick="directToApp('gmail')">
+          <span style="font-size:1.2rem;">📧</span>
+          Gmail
+        </button>
 
-  <button class="btn-dest" onclick="directToApp('translate')">
-    <span style="font-size:1.2rem;">📚</span>
-    Kamus Pintar
-  </button>
+        <button class="btn-dest" onclick="directToApp('translate')">
+          <span style="font-size:1.2rem;">📚</span>
+          Kamus Pintar
+        </button>
 
-  <button class="btn-dest" onclick="directToApp('gemini')">
-    <span style="font-size:1.2rem;">✨</span>
-    Gemini AI
-  </button>
-</div>
+        <button class="btn-dest" onclick="directToApp('gemini')">
+          <span style="font-size:1.2rem;">✨</span>
+          Gemini AI
+        </button>
+      </div>
+
       <button class="btn btn-reset" onclick="tukarAkaun()">
         🔄 Tukar / Log Masuk Akaun Murid Lain
       </button>
@@ -390,12 +391,16 @@
         </select>
       </div>
 
+      <!-- DIPERBAIKI: Diselaraskan dengan senarai penuh aplikasi -->
       <div class="form-group">
         <label for="selectDestinasi">🚀 3. Pilih Aplikasi</label>
         <select id="selectDestinasi">
           <option value="classroom">🏫 Google Classroom</option>
-          <option value="gemini">✨ Gemini AI</option>
+          <option value="docs">📄 Google Docs</option>
           <option value="drive">📁 Google Drive</option>
+          <option value="gmail">📧 Gmail</option>
+          <option value="translate">📚 Kamus Pintar (Translate)</option>
+          <option value="gemini">✨ Gemini AI</option>
         </select>
       </div>
 
@@ -409,7 +414,6 @@
     </div>
   </div>
 
-  <!-- FOOTER ELEGAN DUA BARIS HALUS -->
   <div class="footer">
     <span class="dev-label">developed by</span>
     <div class="dev-elegant">Sahranie S • SK Lotong, Tambunan</div>
@@ -421,13 +425,14 @@
   const GAS_API_URL = "https://script.google.com/macros/s/AKfycbwRRR0X3_wVVcDjDIvpEkRWUrcLmF9jGTWq0lLHjofnOD2R3_5mEoisGu3wmqz9BPxeEw/exec";
 
   const TARGET_URLS = {
-  classroom: "https://classroom.google.com",
-  docs: "https://docs.google.com/document/",
-  drive: "https://drive.google.com",
-  gmail: "https://mail.google.com",
-  translate: "https://translate.google.com",
-  gemini: "https://gemini.google.com"
-};
+    classroom: "https://classroom.google.com",
+    docs: "https://docs.google.com/document/",
+    drive: "https://drive.google.com",
+    gmail: "https://mail.google.com",
+    translate: "https://translate.google.com",
+    gemini: "https://gemini.google.com"
+  };
+
   window.onload = function() {
     semakSesiTersimpan();
   };
