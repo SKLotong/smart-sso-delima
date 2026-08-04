@@ -339,17 +339,36 @@
       
       <div class="dest-title">🎯 Pilih Aplikasi Akses:</div>
       <div class="dest-grid">
-        <button class="btn-dest" onclick="directToApp('classroom')">
-          <span style="font-size: 1.2rem;">🏫</span> Classroom
-        </button>
-        <button class="btn-dest" onclick="directToApp('gemini')">
-          <span style="font-size: 1.2rem;">✨</span> Gemini AI
-        </button>
-        <button class="btn-dest" onclick="directToApp('drive')">
-          <span style="font-size: 1.2rem;">📁</span> Drive
-        </button>
-      </div>
+  <button class="btn-dest" onclick="directToApp('classroom')">
+    <span style="font-size:1.2rem;">🏫</span>
+    Classroom
+  </button>
 
+  <button class="btn-dest" onclick="directToApp('docs')">
+    <span style="font-size:1.2rem;">📄</span>
+    Google Docs
+  </button>
+
+  <button class="btn-dest" onclick="directToApp('drive')">
+    <span style="font-size:1.2rem;">📁</span>
+    Drive
+  </button>
+
+  <button class="btn-dest" onclick="directToApp('gmail')">
+    <span style="font-size:1.2rem;">📧</span>
+    Gmail
+  </button>
+
+  <button class="btn-dest" onclick="directToApp('translate')">
+    <span style="font-size:1.2rem;">📚</span>
+    Kamus Pintar
+  </button>
+
+  <button class="btn-dest" onclick="directToApp('gemini')">
+    <span style="font-size:1.2rem;">✨</span>
+    Gemini AI
+  </button>
+</div>
       <button class="btn btn-reset" onclick="tukarAkaun()">
         🔄 Tukar / Log Masuk Akaun Murid Lain
       </button>
@@ -402,11 +421,13 @@
   const GAS_API_URL = "https://script.google.com/macros/s/AKfycbwRRR0X3_wVVcDjDIvpEkRWUrcLmF9jGTWq0lLHjofnOD2R3_5mEoisGu3wmqz9BPxeEw/exec";
 
   const TARGET_URLS = {
-    classroom: "https://classroom.google.com",
-    gemini: "https://gemini.google.com",
-    drive: "https://drive.google.com"
-  };
-
+  classroom: "https://classroom.google.com",
+  docs: "https://docs.google.com/document/",
+  drive: "https://drive.google.com",
+  gmail: "https://mail.google.com",
+  translate: "https://translate.google.com",
+  gemini: "https://gemini.google.com"
+};
   window.onload = function() {
     semakSesiTersimpan();
   };
