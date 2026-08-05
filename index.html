@@ -332,13 +332,22 @@
         <p id="savedEmelMurid">-</p>
       </div>
 
-      <!-- Diubah supaya cap jari membuka aplikasi pilihan utama (default: classroom atau mengikut kesesuaian) -->
-      <button id="btnBioLogin" class="btn btn-bio" onclick="loginGunaBiometric()">
-        <span>👆</span> LOG MASUK GUNA CAP JARI / FACE ID
+      <button id="btnSavedLogin" class="btn btn-bio" onclick="directToApp('delima')">
+        <span>🔓</span> BUKA DELIMa DENGAN AKAUN TERSIMPAN
       </button>
       
       <div class="dest-title">🎯 Pilih Aplikasi Akses:</div>
       <div class="dest-grid">
+        <button class="btn-dest" onclick="directToApp('delima')">
+          <span style="font-size:1.2rem;">🚀</span>
+          DELIMa
+        </button>
+
+        <button class="btn-dest" onclick="directToApp('ains')">
+          <span style="font-size:1.2rem;">📚</span>
+          AINS NILAM
+        </button>
+
         <button class="btn-dest" onclick="directToApp('classroom')">
           <span style="font-size:1.2rem;">🏫</span>
           Classroom
@@ -395,6 +404,8 @@
       <div class="form-group">
         <label for="selectDestinasi">🚀 3. Pilih Aplikasi</label>
         <select id="selectDestinasi">
+          <option value="delima">🚀 Portal DELIMa</option>
+          <option value="ains">📚 AINS NILAM</option>
           <option value="classroom">🏫 Google Classroom</option>
           <option value="docs">📄 Google Docs</option>
           <option value="drive">📁 Google Drive</option>
@@ -410,7 +421,7 @@
     </div>
 
     <div class="note-card">
-      💡 <strong>Sistem Auto-Ingat:</strong> Masukkan kata laluan sekali sahaja. Log masuk akan datang boleh terus dibuka menggunakan Fingerprint atau Face ID telefon anda.
+      💡 <strong>Sistem Ingat Akaun:</strong> Sistem ini hanya menyimpan nama dan e-mel DELIMa pada peranti ini. Kata laluan tidak disimpan. Jika sesi Google masih aktif, portal biasanya boleh dibuka dengan lebih cepat; jika belum, Google tetap akan meminta kata laluan.
     </div>
   </div>
 
@@ -425,6 +436,8 @@
   const GAS_API_URL = "https://script.google.com/macros/s/AKfycbwRRR0X3_wVVcDjDIvpEkRWUrcLmF9jGTWq0lLHjofnOD2R3_5mEoisGu3wmqz9BPxeEw/exec";
 
   const TARGET_URLS = {
+    delima: "https://d3.delima.edu.my",
+    ains: "https://ains.moe.gov.my/login?returnUrl=/",
     classroom: "https://classroom.google.com",
     docs: "https://docs.google.com/document/",
     drive: "https://drive.google.com",
@@ -535,7 +548,7 @@
     var select = document.getElementById("selectMurid");
     var emel = select.value;
     var nama = select.options[select.selectedIndex].getAttribute("data-nama");
-    var destKey = document.getElementById("selectDestinasi").value || "classroom";
+    var destKey = document.getElementById("selectDestinasi").value || "delima";
 
     if (!emel) return;
 
@@ -545,41 +558,20 @@
     directToTargetUrl(emel, TARGET_URLS[destKey]);
   }
 
-  async function loginGunaBiometric() {
-    var emel = localStorage.getItem("sk_lotong_emel");
-    if (!emel) return;
-
-    if (window.PublicKeyCredential) {
-      try {
-        const challenge = new Uint8Array(32);
-        window.crypto.getRandomValues(challenge);
-
-        await navigator.credentials.get({
-          publicKey: {
-            challenge: challenge,
-            timeout: 60000,
-            userVerification: "required"
-          }
-        });
-
-        directToTargetUrl(emel, TARGET_URLS.classroom);
-      } catch (err) {
-        directToTargetUrl(emel, TARGET_URLS.classroom);
-      }
-    } else {
-      directToTargetUrl(emel, TARGET_URLS.classroom);
-    }
-  }
-
   function directToApp(appKey) {
     var emel = localStorage.getItem("sk_lotong_emel");
-    var target = TARGET_URLS[appKey] || TARGET_URLS.classroom;
+    var target = TARGET_URLS[appKey] || TARGET_URLS.delima;
     if (emel) directToTargetUrl(emel, target);
   }
 
   function directToTargetUrl(emel, targetUrl) {
-    var loginUrl = "https://accounts.google.com/AccountChooser?Email=" + encodeURIComponent(emel) + "&continue=" + encodeURIComponent(targetUrl);
-    window.open(loginUrl, '_blank');
+    // Memilih akaun Google DELIMa dahulu, kemudian meneruskan ke aplikasi sasaran.
+    // Untuk DELIMa dan AINS, portal tersebut masih mengawal proses OAuth sendiri.
+    var loginUrl = "https://accounts.google.com/AccountChooser?Email=" +
+      encodeURIComponent(emel) +
+      "&continue=" + encodeURIComponent(targetUrl);
+
+    window.open(loginUrl, '_blank', 'noopener,noreferrer');
   }
 
   function tukarAkaun() {
