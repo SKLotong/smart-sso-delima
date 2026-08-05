@@ -421,7 +421,7 @@
     </div>
 
     <div class="note-card">
-      💡 <strong>Sistem Ingat Akaun:</strong> Sistem ini hanya menyimpan nama dan e-mel DELIMa pada peranti ini. Kata laluan tidak disimpan. Jika sesi Google masih aktif, portal biasanya boleh dibuka dengan lebih cepat; jika belum, Google tetap akan meminta kata laluan.
+      💡 <strong>Sistem Ingat Akaun:</strong> Sistem ini menyimpan nama dan e-mel DELIMa pada peranti ini, tetapi tidak menyimpan kata laluan. Untuk DELIMa dan AINS, portal akan dibuka secara terus. Tekan <strong>Log masuk dengan Google</strong> di portal dan pilih akaun DELIMa murid. Jika sesi akaun masih aktif, kata laluan biasanya tidak perlu dimasukkan semula.
     </div>
   </div>
 
@@ -437,7 +437,7 @@
 
   const TARGET_URLS = {
     delima: "https://d3.delima.edu.my",
-    ains: "https://ains.moe.gov.my/login?returnUrl=/",
+    ains: "https://ains.moe.gov.my/",
     classroom: "https://classroom.google.com",
     docs: "https://docs.google.com/document/",
     drive: "https://drive.google.com",
@@ -555,23 +555,37 @@
     localStorage.setItem("sk_lotong_emel", emel);
     localStorage.setItem("sk_lotong_nama", nama);
 
-    directToTargetUrl(emel, TARGET_URLS[destKey]);
+    directToTargetUrl(emel, TARGET_URLS[destKey], destKey);
   }
 
   function directToApp(appKey) {
     var emel = localStorage.getItem("sk_lotong_emel");
     var target = TARGET_URLS[appKey] || TARGET_URLS.delima;
-    if (emel) directToTargetUrl(emel, target);
+    if (emel) directToTargetUrl(emel, target, appKey);
   }
 
-  function directToTargetUrl(emel, targetUrl) {
-    // Memilih akaun Google DELIMa dahulu, kemudian meneruskan ke aplikasi sasaran.
-    // Untuk DELIMa dan AINS, portal tersebut masih mengawal proses OAuth sendiri.
-    var loginUrl = "https://accounts.google.com/AccountChooser?Email=" +
-      encodeURIComponent(emel) +
-      "&continue=" + encodeURIComponent(targetUrl);
+  function directToTargetUrl(emel, targetUrl, appKey) {
+    // Jangan gunakan accounts.google.com/AccountChooser untuk membawa pengguna
+    // ke laman pihak ketiga. Google boleh menolak parameter continue dan
+    // memaparkan ralat 400 "malformed request".
 
-    window.open(loginUrl, '_blank', 'noopener,noreferrer');
+    var finalUrl = targetUrl;
+
+    // Untuk aplikasi Google sendiri, authuser hanya bertindak sebagai petunjuk
+    // akaun. Jika tidak disokong, aplikasi Google akan memaparkan pemilih akaun.
+    if (["classroom", "docs", "drive", "gmail", "gemini"].includes(appKey)) {
+      try {
+        var url = new URL(targetUrl);
+        url.searchParams.set("authuser", emel);
+        finalUrl = url.toString();
+      } catch (e) {
+        finalUrl = targetUrl;
+      }
+    }
+
+    // DELIMa dan AINS ialah portal pihak ketiga yang mengawal proses OAuth
+    // mereka sendiri. Buka portal secara terus supaya permintaan tidak rosak.
+    window.open(finalUrl, '_blank', 'noopener,noreferrer');
   }
 
   function tukarAkaun() {
