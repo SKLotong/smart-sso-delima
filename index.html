@@ -2,7 +2,8 @@
 <html lang="ms">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1e3a8a">
   <title>DELIMa OneStop LOGIN</title>
   <!-- Import Font Poppins & Playfair Display untuk gaya elegan -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -21,6 +22,7 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      min-height: 100dvh;
       padding: 20px 15px;
     }
 
@@ -305,6 +307,193 @@
       font-style: italic;
     }
 
+
+    .browser-alert {
+      display: none;
+      margin-bottom: 18px;
+      padding: 13px 14px;
+      border-radius: 12px;
+      background: #fff7ed;
+      border: 1.5px solid #fdba74;
+      color: #9a3412;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    .browser-alert.show { display: block; }
+
+    .browser-alert .mini-guide {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 9px;
+    }
+
+    .browser-alert .mini-guide span {
+      background: rgba(255,255,255,.75);
+      border: 1px solid #fed7aa;
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .student-preview {
+      display: none;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 14px;
+      margin: -2px 0 18px;
+      text-align: left;
+    }
+
+    .student-preview.show { display: block; }
+
+    .student-preview .small {
+      color: #64748b;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 3px;
+    }
+
+    .student-preview h4 {
+      color: #1e3a8a;
+      font-size: 0.98rem;
+      line-height: 1.35;
+    }
+
+    .student-preview .email {
+      color: #0369a1;
+      font-size: 0.78rem;
+      margin-top: 4px;
+      word-break: break-all;
+    }
+
+    .student-preview .status {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #dcfce7;
+      color: #166534;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 600;
+    }
+
+    .btn-copy {
+      background: #ffffff;
+      color: #1d4ed8;
+      border: 1.5px solid #93c5fd;
+      box-shadow: none;
+      margin-top: 10px;
+      padding: 11px;
+      font-size: 0.82rem;
+    }
+
+    .btn-secondary {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1.5px solid #bfdbfe;
+      box-shadow: none;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(20px);
+      width: calc(100% - 32px);
+      max-width: 390px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 0.78rem;
+      line-height: 1.4;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+      z-index: 2000;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.62);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 3000;
+    }
+
+    .modal-backdrop.show { display: flex; }
+
+    .modal {
+      width: 100%;
+      max-width: 390px;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.30);
+    }
+
+    .modal .icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 12px;
+      background: #dbeafe;
+      font-size: 1.6rem;
+    }
+
+    .modal h3 {
+      text-align: center;
+      color: #1e3a8a;
+      font-size: 1.05rem;
+      margin-bottom: 7px;
+    }
+
+    .modal p {
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: #475569;
+      text-align: center;
+    }
+
+    .modal-email {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #0f172a;
+      font-size: 0.78rem;
+      text-align: center;
+      word-break: break-all;
+      font-weight: 600;
+    }
+
+    .modal-actions {
+      display: grid;
+      gap: 9px;
+      margin-top: 14px;
+    }
+
     .hidden { display: none !important; }
   </style>
 </head>
@@ -323,6 +512,18 @@
       <p>Jimat Masa, Mudah Akses</p>
     </div>
 
+    <div id="browserAlert" class="browser-alert">
+      ⚠️ <strong>Untuk login lebih lancar:</strong> gunakan browser utama telefon.
+      <div class="mini-guide">
+        <span>🍎 iPhone/iPad → Safari</span>
+        <span>🤖 Android → Chrome</span>
+      </div>
+      <div style="margin-top:8px;">
+        Jika pautan dibuka dalam WhatsApp/Facebook/Instagram dan login kelihatan pelik,
+        pilih <strong>Open in Safari / Open in Chrome</strong>.
+      </div>
+    </div>
+
     <!-- BENTUK 1: SESI TERSIMPAN -->
     <div id="savedSessionView" class="hidden">
       <div class="saved-box">
@@ -330,6 +531,7 @@
         <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #0284c7; margin-bottom: 2px;">Akaun Terhubung</p>
         <h4 id="savedNamaMurid">-</h4>
         <p id="savedEmelMurid">-</p>
+        <button class="btn btn-copy" onclick="salinIdTersimpan()">📋 Salin ID DELIMa</button>
       </div>
 
       <button id="btnSavedLogin" class="btn btn-bio" onclick="directToApp('delima')">
@@ -400,6 +602,14 @@
         </select>
       </div>
 
+      <div id="studentPreview" class="student-preview">
+        <div class="small">Akaun DELIMa dipilih</div>
+        <h4 id="previewNama">-</h4>
+        <div id="previewEmel" class="email">-</div>
+        <div class="status">✓ ID DELIMa sudah tersedia</div>
+        <button class="btn btn-copy" onclick="salinIdPilihan()">📋 Salin ID DELIMa</button>
+      </div>
+
       <!-- DIPERBAIKI: Diselaraskan dengan senarai penuh aplikasi -->
       <div class="form-group">
         <label for="selectDestinasi">🚀 3. Pilih Aplikasi</label>
@@ -416,12 +626,14 @@
       </div>
 
       <button id="btnLogin" class="btn btn-primary" onclick="prosesLoginPertama()" disabled>
-        <span>🔑</span> LOG MASUK (KALI PERTAMA)
+        <span>🔐</span> SAMBUNG AKAUN / BUKA APLIKASI
       </button>
     </div>
 
     <div class="note-card">
-      💡 <strong>Sistem Ingat Akaun:</strong> Sistem ini menyimpan nama dan e-mel DELIMa pada peranti ini, tetapi tidak menyimpan kata laluan. Untuk DELIMa dan AINS, portal akan dibuka secara terus. Tekan <strong>Log masuk dengan Google</strong> di portal dan pilih akaun DELIMa murid. Jika sesi akaun masih aktif, kata laluan biasanya tidak perlu dimasukkan semula.
+      💡 <strong>Cara lebih mudah:</strong><br>
+      Sistem menyimpan <strong>nama dan e-mel DELIMa sahaja</strong> pada peranti ini — <strong>kata laluan tidak disimpan</strong>.<br><br>
+      Jika Google masih meminta e-mel, ID DELIMa akan cuba <strong>disalin automatik</strong>. Ibu bapa hanya perlu tekan <strong>Tampal / Paste</strong>.
     </div>
   </div>
 
@@ -430,6 +642,24 @@
     <div class="dev-elegant">Sahranie S • SK Lotong, Tambunan</div>
   </div>
 
+</div>
+
+
+<div id="toast" class="toast">ID DELIMa telah disalin.</div>
+
+<div id="loginModalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="icon">📋</div>
+    <h3 id="modalTitle">ID DELIMa Sudah Disediakan</h3>
+    <p id="modalText">
+      Jika Google meminta alamat e-mel, tekan dan tahan pada ruangan e-mel kemudian pilih <strong>Tampal / Paste</strong>.
+    </p>
+    <div id="modalEmail" class="modal-email">-</div>
+    <div class="modal-actions">
+      <button id="btnContinue" class="btn btn-primary">Teruskan</button>
+      <button class="btn btn-secondary" onclick="tutupModal()">Batal</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -446,13 +676,30 @@
     gemini: "https://gemini.google.com"
   };
 
-  window.onload = function() {
+  let pendingTargetUrl = "";
+
+  window.addEventListener("load", function() {
+    paparAmaranBrowserJikaPerlu();
     semakSesiTersimpan();
-  };
+  });
+
+  function paparAmaranBrowserJikaPerlu() {
+    const ua = navigator.userAgent || "";
+    const isIOS = /iPhone|iPad|iPod/i.test(ua);
+    const isAndroid = /Android/i.test(ua);
+    const isKnownInApp =
+      /FBAN|FBAV|Instagram|Line\/|TikTok/i.test(ua) ||
+      (isAndroid && (/\bwv\b/i.test(ua) || /Version\/4\.0.*Chrome/i.test(ua)));
+
+    // Paparkan panduan pada telefon; sesetengah in-app browser sukar dikenal pasti.
+    if (isKnownInApp || isIOS || isAndroid) {
+      document.getElementById("browserAlert").classList.add("show");
+    }
+  }
 
   function semakSesiTersimpan() {
-    var savedEmel = localStorage.getItem("sk_lotong_emel");
-    var savedNama = localStorage.getItem("sk_lotong_nama");
+    const savedEmel = localStorage.getItem("sk_lotong_emel");
+    const savedNama = localStorage.getItem("sk_lotong_nama");
 
     if (savedEmel && savedNama) {
       document.getElementById("firstTimeView").classList.add("hidden");
@@ -467,17 +714,18 @@
   }
 
   function muatSenaraiKelas() {
-    var select = document.getElementById("selectKelas");
+    const select = document.getElementById("selectKelas");
     select.innerHTML = '<option value="">-- Memuatkan Senarai Kelas... --</option>';
 
     fetch(GAS_API_URL + "?action=getKelas", {
       method: "GET",
       redirect: "follow"
     })
-    .then(response => response.json())
-    .then(senaraiKelas => {
-      isiKelas(senaraiKelas);
+    .then(response => {
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      return response.json();
     })
+    .then(isiKelas)
     .catch(err => {
       console.error("Ralat muat kelas:", err);
       select.innerHTML = '<option value="">-- Gagal Memuatkan Kelas (Cuba Refresh) --</option>';
@@ -485,11 +733,12 @@
   }
 
   function isiKelas(senaraiKelas) {
-    var select = document.getElementById("selectKelas");
+    const select = document.getElementById("selectKelas");
     select.innerHTML = '<option value="">-- Pilih Kelas --</option>';
+
     if (Array.isArray(senaraiKelas) && senaraiKelas.length > 0) {
-      senaraiKelas.forEach(function(kelas) {
-        var opt = document.createElement("option");
+      senaraiKelas.forEach(kelas => {
+        const opt = document.createElement("option");
         opt.value = kelas;
         opt.textContent = kelas;
         select.appendChild(opt);
@@ -500,9 +749,11 @@
   }
 
   function muatMurid() {
-    var kelas = document.getElementById("selectKelas").value;
-    var selectMurid = document.getElementById("selectMurid");
-    var btnLogin = document.getElementById("btnLogin");
+    const kelas = document.getElementById("selectKelas").value;
+    const selectMurid = document.getElementById("selectMurid");
+    const btnLogin = document.getElementById("btnLogin");
+
+    resetPreviewMurid();
 
     if (!kelas) {
       selectMurid.innerHTML = '<option value="">-- Pilih Kelas Terlebih Dahulu --</option>';
@@ -513,19 +764,24 @@
 
     selectMurid.innerHTML = '<option value="">-- Memuatkan Nama... --</option>';
     selectMurid.disabled = true;
+    btnLogin.disabled = true;
 
     fetch(GAS_API_URL + "?action=getMurid&kelas=" + encodeURIComponent(kelas), {
       method: "GET",
       redirect: "follow"
     })
-    .then(response => response.json())
-    .then(function(senaraiMurid) {
+    .then(response => {
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      return response.json();
+    })
+    .then(senaraiMurid => {
       selectMurid.innerHTML = '<option value="">-- Pilih Nama Murid --</option>';
+
       if (Array.isArray(senaraiMurid) && senaraiMurid.length > 0) {
-        senaraiMurid.forEach(function(m) {
-          var opt = document.createElement("option");
+        senaraiMurid.forEach(m => {
+          const opt = document.createElement("option");
           opt.value = m.emel;
-          opt.setAttribute("data-nama", m.nama);
+          opt.dataset.nama = m.nama;
           opt.textContent = m.nama;
           selectMurid.appendChild(opt);
         });
@@ -541,41 +797,155 @@
   }
 
   document.getElementById("selectMurid").addEventListener("change", function() {
-    document.getElementById("btnLogin").disabled = !this.value;
+    const btnLogin = document.getElementById("btnLogin");
+    btnLogin.disabled = !this.value;
+
+    if (!this.value) {
+      resetPreviewMurid();
+      return;
+    }
+
+    const nama = this.options[this.selectedIndex].dataset.nama || "";
+    document.getElementById("previewNama").textContent = nama;
+    document.getElementById("previewEmel").textContent = this.value;
+    document.getElementById("studentPreview").classList.add("show");
   });
 
-  function prosesLoginPertama() {
-    var select = document.getElementById("selectMurid");
-    var emel = select.value;
-    var nama = select.options[select.selectedIndex].getAttribute("data-nama");
-    var destKey = document.getElementById("selectDestinasi").value || "delima";
+  function resetPreviewMurid() {
+    document.getElementById("studentPreview").classList.remove("show");
+    document.getElementById("previewNama").textContent = "-";
+    document.getElementById("previewEmel").textContent = "-";
+  }
+
+  async function salinKeClipboard(text) {
+    if (!text) return false;
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+    } catch (e) {
+      console.warn("Clipboard API gagal:", e);
+    }
+
+    try {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      textarea.setSelectionRange(0, textarea.value.length);
+      const ok = document.execCommand("copy");
+      document.body.removeChild(textarea);
+      return ok;
+    } catch (e) {
+      console.warn("Fallback copy gagal:", e);
+      return false;
+    }
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(showToast.timer);
+    showToast.timer = setTimeout(() => toast.classList.remove("show"), 2600);
+  }
+
+  async function salinIdPilihan() {
+    const emel = document.getElementById("selectMurid").value;
+    const ok = await salinKeClipboard(emel);
+    showToast(ok
+      ? "✅ ID DELIMa telah disalin. Jika diminta, tekan Tampal / Paste."
+      : "⚠️ Tidak dapat salin automatik. Tekan lama pada ID dan pilih Salin.");
+  }
+
+  async function salinIdTersimpan() {
+    const emel = localStorage.getItem("sk_lotong_emel");
+    const ok = await salinKeClipboard(emel);
+    showToast(ok
+      ? "✅ ID DELIMa telah disalin."
+      : "⚠️ Tidak dapat salin automatik. Sila salin ID secara manual.");
+  }
+
+  async function prosesLoginPertama() {
+    const select = document.getElementById("selectMurid");
+    const emel = select.value;
+    const nama = select.options[select.selectedIndex]?.dataset.nama || "";
+    const destKey = document.getElementById("selectDestinasi").value || "delima";
 
     if (!emel) return;
 
     localStorage.setItem("sk_lotong_emel", emel);
     localStorage.setItem("sk_lotong_nama", nama);
 
-    directToTargetUrl(emel, TARGET_URLS[destKey], destKey);
+    const copied = await salinKeClipboard(emel);
+    pendingTargetUrl = binaTargetUrl(emel, TARGET_URLS[destKey], destKey);
+
+    document.getElementById("modalEmail").textContent = emel;
+
+    if (copied) {
+      document.getElementById("modalTitle").textContent = "ID DELIMa Sudah Disalin";
+      document.getElementById("modalText").innerHTML =
+        'Jika Google masih meminta alamat e-mel, tekan dan tahan pada ruangan e-mel kemudian pilih <strong>Tampal / Paste</strong>.';
+    } else {
+      document.getElementById("modalTitle").textContent = "ID DELIMa Sudah Disediakan";
+      document.getElementById("modalText").innerHTML =
+        'Browser ini tidak membenarkan salin automatik. Jika Google meminta e-mel, kembali ke halaman ini dan tekan <strong>Salin ID DELIMa</strong>.';
+    }
+
+    document.getElementById("btnContinue").textContent =
+      destKey === "delima" ? "🚀 Teruskan ke DELIMa" :
+      destKey === "ains" ? "📚 Teruskan ke AINS NILAM" :
+      "➡️ Teruskan ke Aplikasi";
+
+    document.getElementById("loginModalBackdrop").classList.add("show");
+  }
+
+  document.getElementById("btnContinue").addEventListener("click", function() {
+    if (pendingTargetUrl) {
+      // Guna tab yang sama supaya popup blocker telefon tidak mengganggu.
+      window.location.href = pendingTargetUrl;
+    }
+  });
+
+  function tutupModal() {
+    document.getElementById("loginModalBackdrop").classList.remove("show");
   }
 
   function directToApp(appKey) {
-    var emel = localStorage.getItem("sk_lotong_emel");
-    var target = TARGET_URLS[appKey] || TARGET_URLS.delima;
-    if (emel) directToTargetUrl(emel, target, appKey);
+    const emel = localStorage.getItem("sk_lotong_emel");
+    const target = TARGET_URLS[appKey] || TARGET_URLS.delima;
+
+    if (!emel) {
+      tukarAkaunTanpaConfirm();
+      return;
+    }
+
+    if (appKey === "delima" || appKey === "ains") {
+      salinKeClipboard(emel).then(ok => {
+        if (ok) showToast("📋 ID DELIMa disalin sebagai persediaan.");
+        setTimeout(() => {
+          window.location.href = binaTargetUrl(emel, target, appKey);
+        }, 350);
+      });
+      return;
+    }
+
+    window.location.href = binaTargetUrl(emel, target, appKey);
   }
 
-  function directToTargetUrl(emel, targetUrl, appKey) {
-    // Jangan gunakan accounts.google.com/AccountChooser untuk membawa pengguna
-    // ke laman pihak ketiga. Google boleh menolak parameter continue dan
-    // memaparkan ralat 400 "malformed request".
+  function binaTargetUrl(emel, targetUrl, appKey) {
+    let finalUrl = targetUrl;
 
-    var finalUrl = targetUrl;
-
-    // Untuk aplikasi Google sendiri, authuser hanya bertindak sebagai petunjuk
-    // akaun. Jika tidak disokong, aplikasi Google akan memaparkan pemilih akaun.
+    // Untuk aplikasi Google sendiri, authuser hanya petunjuk akaun.
+    // Google masih boleh meminta pengguna memilih atau log masuk semula.
     if (["classroom", "docs", "drive", "gmail", "gemini"].includes(appKey)) {
       try {
-        var url = new URL(targetUrl);
+        const url = new URL(targetUrl);
         url.searchParams.set("authuser", emel);
         finalUrl = url.toString();
       } catch (e) {
@@ -583,18 +953,27 @@
       }
     }
 
-    // DELIMa dan AINS ialah portal pihak ketiga yang mengawal proses OAuth
-    // mereka sendiri. Buka portal secara terus supaya permintaan tidak rosak.
-    window.open(finalUrl, '_blank', 'noopener,noreferrer');
+    // DELIMa dan AINS dibuka secara terus.
+    // Jangan bina AccountChooser + continue sendiri kerana boleh menyebabkan ralat 400.
+    return finalUrl;
   }
 
   function tukarAkaun() {
-    if (confirm("Adakah anda pasti mahu memadam profil tersimpan ini untuk mendaftar akaun murid baharu?")) {
-      localStorage.removeItem("sk_lotong_emel");
-      localStorage.removeItem("sk_lotong_nama");
-      semakSesiTersimpan();
+    if (confirm("Tukar akaun murid? Maklumat nama dan e-mel yang disimpan pada peranti ini akan dipadam.")) {
+      tukarAkaunTanpaConfirm();
     }
   }
+
+  function tukarAkaunTanpaConfirm() {
+    localStorage.removeItem("sk_lotong_emel");
+    localStorage.removeItem("sk_lotong_nama");
+    semakSesiTersimpan();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  document.getElementById("loginModalBackdrop").addEventListener("click", function(e) {
+    if (e.target === this) tutupModal();
+  });
 </script>
 
 </body>
